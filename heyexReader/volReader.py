@@ -11,55 +11,51 @@ from collections import OrderedDict
 
 class volFile():
     def __init__(self, filename):
+        """
+        Parses Heyex Spectralis *.vol files.
+
+        Args:
+            filename (str): Path to vol file
+
+        Returns: 
+            volFile class
+
+        """
         self.__parseVolFile(filename)
 
     @property
     def oct(self):
-        """returns OCT volume as a 3D numpy array.
+        """
+        Retrieve OCT volume as a 3D numpy array.
 
         Returns:
-            3D numpy array with OCT intensities ranging from 0 to 255.
+            3D numpy array with OCT intensities as 'uint8' array
 
         """
         return self.wholefile["cScan"]
 
     @property
     def irslo(self):
+        """
+        Retrieve IR SLO image as 2D numpy array
+
+        Returns:
+            2D numpy array with IR reflectance SLO image as 'uint8' array.
+
+        """
         return self.wholefile["sloImage"]
 
     @property
-    def fileHeader(self):
-        return self.wholefile["header"]
-
-    @property
-    def bScanHeader(self, slicei):
-        return self.wholefile["slice-headers"][slicei]
-
-    def saveGrid(self, outfn):
-        """saves the grid mapping OCT to the IR image.
-
-        Saves the grid coordinates mapping OCT Bscans to the IR SLO image to a text file. The text file
-        will be a tab-delimited file with 5 columns: The bscan number, x_0, y_0, x_1, y_1 in pixel space
-        scaled to the resolution of the IR SLO image.
-
-        Args:
-            wf: whole file object
-            outfn (str): location of where to output the file
+    def grid(self):
+        """
+        Retrieve the IR SLO pixel coordinates for the B scan OCT slices
 
         Returns:
-            None
+            2D numpy array with the number of b scan images in the first dimension
+            and x_0, y_0, x_1, y_1 defining the line of the B scan on the pixel 
+            coordinates of the IR SLO image.
 
         """
-        grid = self.__getGrid()
-        with open(outfn, "w") as fout:
-            fout.write("bscan\tx_0\ty_0\tx_1\ty_1\n")
-            ri = 0
-            for r in grid:
-                r = [ri] + r
-                fout.write("%s\n" % "\t".join(map(str, r)))
-                ri += 1
-
-    def __getGrid(self):
         wf = self.wholefile
         grid = []
         for bi in range(len(wf["slice-headers"])):
@@ -71,7 +67,18 @@ class volFile():
             grid.append([x_0, y_0, x_1, y_1])
         return grid
 
-    def renderIRslo(self, filepre = "ir", renderGrid=False):
+    def renderIRslo(self, filename, renderGrid=False):
+        """
+        Renders IR SLO image as a PNG file and optionally overlays grid of B scans
+
+        Args:
+            filename (str): filename to save IR SLO image
+            renderGrid (bool): True will render green lines for the location of the B scans.
+
+        Returns:
+            None
+
+        """
         from PIL import Image, ImageDraw
         wf = self.wholefile
         a = np.copy(wf["sloImage"])
@@ -79,14 +86,25 @@ class volFile():
             a = np.stack((a,)*3, axis=-1)
             a = Image.fromarray(a)
             draw = ImageDraw.Draw(a)
-            grid = self.__getGrid(wf)
+            grid = self.grid
             for (x_0, y_0, x_1, y_1) in grid:
                 draw.line((x_0,y_0, x_1, y_1), fill=(255,0,0), width=3)
-            a.save("%s-slo.png" % (filepre))
+            a.save(filename)
         else:
-            Image.fromarray(a).save("%s-slo.png" % (filepre))
+            Image.fromarray(a).save(filepre)
 
     def renderOCTscans(self, filepre = "oct", renderSeg=False):
+        """
+        Renders OCT images a PNG file and optionally overlays segmentation lines
+
+        Args:
+            filepre (str): filename prefix. OCT Images will be named as "<prefix>-001.png"
+            renderSeg (bool): True will render colored lines for the segmentation of the RPE, ILM, and NFL on the B scans.
+
+        Returns:
+            None
+
+        """
         from PIL import Image
         wf = self.wholefile
         for i in range(wf["cScan"].shape[0]):
@@ -194,3 +212,85 @@ class volFile():
             wholefile["segmentations"] = np.array(segmentations)
             wholefile["slice-headers"] = bscanheaders
             self.wholefile = wholefile
+
+    @property
+    def fileHeader(self):
+        """
+        Retrieve vol header fields
+
+        Returns:
+            Dictionary with the following keys
+                - version: version number of vol file definition
+                - numBscan: number of B scan images in the volume
+                - octSizeX: number of pixels in the width of the OCT B scan
+                - octSizeZ: number of pixels in the height of the OCT B scan
+                - distance: unknown
+                - scaleX: resolution scaling factor of the width of the OCT B scan
+                - scaleZ: resolution scaling factor of the height of the OCT B scan
+                - sizeXSlo: number of pixels in the width of the IR SLO image
+                - sizeYSlo: number of pixels in the height of the IR SLO image
+                - scaleXSlo: resolution scaling factor of the width of the IR SLO image
+                - scaleYSlo: resolution scaling factor of the height of the IR SLO image
+                - fieldSizeSlo: field of view (FOV) of the retina in degrees
+                - scanFocus: unknown
+                - scanPos: Left or Right eye scanned
+                - examTime: Datetime of the scan (needs to be checked)
+                - scanPattern: unknown
+                - BscanHdrSize: size of B scan header in bytes
+                - ID: unknown
+                - ReferenceID
+                - PID: unknown
+                - PatientID: Patient ID string
+                - DOB: Date of birth
+                - VID: unknown
+                - VisitID: Visit ID string
+                - VisitDate: Datetime of visit (needs to be checked)
+                - GridType: unknown
+                - GridOffset: unknown
+
+        """
+        return self.wholefile["header"]
+
+    def bScanHeader(self, slicei):
+        """
+        Retrieve the B Scan header information per slice.
+
+        Args:
+            slicei (int): index of B scan
+
+        Returns:
+            Dictionary with the following keys
+                - startX: x-coordinate for B scan on IR. (see getGrid)
+                - startY: y-coordinate for B scan on IR. (see getGrid)
+                - endX: x-coordinate for B scan on IR. (see getGrid)
+                - endY: y-coordinate for B scan on IR. (see getGrid)
+                - numSeg: 2 or 3 segmentation lines for the B scan
+                - quality: OCT signal quality
+                - shift: unknown
+
+        """
+        return self.wholefile["slice-headers"][slicei]
+
+    def saveGrid(self, outfn):
+        """
+        Saves the grid coordinates mapping OCT Bscans to the IR SLO image to a text file. The text file
+        will be a tab-delimited file with 5 columns: The bscan number, x_0, y_0, x_1, y_1 in pixel space
+        scaled to the resolution of the IR SLO image.
+
+        Args:
+            outfn (str): location of where to output the file
+
+        Returns:
+            None
+
+        """
+        grid = self.grid
+        with open(outfn, "w") as fout:
+            fout.write("bscan\tx_0\ty_0\tx_1\ty_1\n")
+            ri = 0
+            for r in grid:
+                r = [ri] + r
+                fout.write("%s\n" % "\t".join(map(str, r)))
+                ri += 1
+
+
