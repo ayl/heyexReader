@@ -1,3 +1,3 @@
-from volReader import volFile
+from .volReader import volFile
 
 name = "heyexReader"

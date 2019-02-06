@@ -5,7 +5,7 @@
 # Code ported from Markus Mayer's excellent work (https://www5.cs.fau.de/research/software/octseg/)
 
 
-import struct, array, datetime
+import struct, array, datetime, codecs
 import numpy as np
 from collections import OrderedDict
 
@@ -73,7 +73,7 @@ class volFile():
 
         Args:
             filename (str): filename to save IR SLO image
-            renderGrid (bool): True will render green lines for the location of the B scans.
+            renderGrid (bool): True will render red lines for the location of the B scans.
 
         Returns:
             None
@@ -120,6 +120,7 @@ class volFile():
 
     def __parseVolFile(self, fn):
         wholefile = OrderedDict()
+        decode_hex = codecs.getdecoder("hex_codec")
         with open(fn, "rb") as fin:
             header = OrderedDict()
             header["version"] = fin.read(12)
@@ -185,7 +186,7 @@ class volFile():
                 U.fromstring(fin.read(4 * header["octSizeX"] * header["octSizeZ"]))
                 U = np.array(U).reshape((header["octSizeZ"],header["octSizeX"]))
                 # remove out of boundary 
-                v = struct.unpack("f", 'FFFF7F7F'.decode("hex"))
+                v = struct.unpack("f", decode_hex('FFFF7F7F')[0])
                 U[U == v] = 0
                 # log normalize
                 U = np.log(10000 * U + 1)

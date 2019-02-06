@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="heyexReader",
-    version="0.1.0",
+    version="0.1.2",
     author="Aaron Lee",
     author_email="leeay@uw.edu",
     description="Python package for reading and parsing Heyex Heidelberg Spectralis OCT files",
@@ -14,6 +14,7 @@ setuptools.setup(
     url="https://github.com/ayl/heyexReader",
     packages=setuptools.find_packages(),
     classifiers=[
+        "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 2",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
