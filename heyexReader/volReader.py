@@ -3,6 +3,10 @@
 # Aaron Y. Lee MD MSCI (University of Washington)
 #
 # Code ported from Markus Mayer's excellent work (https://www5.cs.fau.de/research/software/octseg/)
+# 
+# Also thanks to who contributed to the original openVol.m in Markus's project
+#   Radim Kolar, Brno University, Czech Republic
+#   Kris Sheets, Retinal Cell Biology Lab, Neuroscience Center of Excellence, LSU Health Sciences Center, New Orleans
 
 
 import struct, array, datetime, codecs
