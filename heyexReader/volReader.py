@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Aaron Y. Lee MD MSCI (University of Washington)
+# Aaron Y. Lee MD MSCI (University of Washington) Copyright 2019
 #
 # Code ported from Markus Mayer's excellent work (https://www5.cs.fau.de/research/software/octseg/)
 # 
