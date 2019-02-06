@@ -37,3 +37,9 @@ print(vol.irslo.shape)
 
 The basis for this code was ported from Markus Mayer's excellent work <https://www5.cs.fau.de/research/software/octseg/>. 
 
+
+# Funded by
+[![Research to Prevent Blindness](/funding/rpb.png?raw=true "RPB")](https://www.rpbusa.org/rpb/)
+[![National Eye Institute](/funding/nei.jpg?raw=true "NEI")](https://nei.nih.gov/)
+
+
