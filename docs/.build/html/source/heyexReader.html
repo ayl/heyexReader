@@ -1,0 +1,426 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>heyexReader package &mdash; Python Heyex Reader 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Welcome to Python Heyex Reader’s documentation!" href="../index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Python Heyex Reader
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">heyexReader package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-heyexReader.volReader">heyexReader.volReader module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Python Heyex Reader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>heyexReader package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/heyexReader.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="heyexreader-package">
+<h1>heyexReader package<a class="headerlink" href="#heyexreader-package" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">heyexReader package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-heyexReader.volReader">heyexReader.volReader module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="module-heyexReader.volReader">
+<span id="heyexreader-volreader-module"></span><h2>heyexReader.volReader module<a class="headerlink" href="#module-heyexReader.volReader" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="heyexReader.volReader.volFile">
+<em class="property">class </em><code class="descclassname">heyexReader.volReader.</code><code class="descname">volFile</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#heyexReader.volReader.volFile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="heyexReader.volReader.volFile.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#heyexReader.volReader.volFile.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses Heyex Spectralis <a href="#id1"><span class="problematic" id="id2">*</span></a>.vol files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<em>str</em>) – Path to vol file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">volFile class</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="heyexReader.volReader.volFile.oct">
+<code class="descname">oct</code><a class="headerlink" href="#heyexReader.volReader.volFile.oct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve OCT volume as a 3D numpy array.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3D numpy array with OCT intensities as ‘uint8’ array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="heyexReader.volReader.volFile.irslo">
+<code class="descname">irslo</code><a class="headerlink" href="#heyexReader.volReader.volFile.irslo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve IR SLO image as 2D numpy array</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">2D numpy array with IR reflectance SLO image as ‘uint8’ array.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="heyexReader.volReader.volFile.grid">
+<code class="descname">grid</code><a class="headerlink" href="#heyexReader.volReader.volFile.grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the IR SLO pixel coordinates for the B scan OCT slices</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">2D numpy array with the number of b scan images in the first dimension
+and x_0, y_0, x_1, y_1 defining the line of the B scan on the pixel
+coordinates of the IR SLO image.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="heyexReader.volReader.volFile.renderIRslo">
+<code class="descname">renderIRslo</code><span class="sig-paren">(</span><em>filename</em>, <em>renderGrid=False</em><span class="sig-paren">)</span><a class="headerlink" href="#heyexReader.volReader.volFile.renderIRslo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders IR SLO image as a PNG file and optionally overlays grid of B scans</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> (<em>str</em>) – filename to save IR SLO image</li>
+<li><strong>renderGrid</strong> (<em>bool</em>) – True will render green lines for the location of the B scans.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="heyexReader.volReader.volFile.renderOCTscans">
+<code class="descname">renderOCTscans</code><span class="sig-paren">(</span><em>filepre='oct'</em>, <em>renderSeg=False</em><span class="sig-paren">)</span><a class="headerlink" href="#heyexReader.volReader.volFile.renderOCTscans" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders OCT images a PNG file and optionally overlays segmentation lines</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filepre</strong> (<em>str</em>) – filename prefix. OCT Images will be named as “&lt;prefix&gt;-001.png”</li>
+<li><strong>renderSeg</strong> (<em>bool</em>) – True will render colored lines for the segmentation of the RPE, ILM, and NFL on the B scans.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="heyexReader.volReader.volFile.fileHeader">
+<code class="descname">fileHeader</code><a class="headerlink" href="#heyexReader.volReader.volFile.fileHeader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve vol header fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>Dictionary with the following keys</dt>
+<dd><ul class="first last simple">
+<li>version: version number of vol file definition</li>
+<li>numBscan: number of B scan images in the volume</li>
+<li>octSizeX: number of pixels in the width of the OCT B scan</li>
+<li>octSizeZ: number of pixels in the height of the OCT B scan</li>
+<li>distance: unknown</li>
+<li>scaleX: resolution scaling factor of the width of the OCT B scan</li>
+<li>scaleZ: resolution scaling factor of the height of the OCT B scan</li>
+<li>sizeXSlo: number of pixels in the width of the IR SLO image</li>
+<li>sizeYSlo: number of pixels in the height of the IR SLO image</li>
+<li>scaleXSlo: resolution scaling factor of the width of the IR SLO image</li>
+<li>scaleYSlo: resolution scaling factor of the height of the IR SLO image</li>
+<li>fieldSizeSlo: field of view (FOV) of the retina in degrees</li>
+<li>scanFocus: unknown</li>
+<li>scanPos: Left or Right eye scanned</li>
+<li>examTime: Datetime of the scan (needs to be checked)</li>
+<li>scanPattern: unknown</li>
+<li>BscanHdrSize: size of B scan header in bytes</li>
+<li>ID: unknown</li>
+<li>ReferenceID</li>
+<li>PID: unknown</li>
+<li>PatientID: Patient ID string</li>
+<li>DOB: Date of birth</li>
+<li>VID: unknown</li>
+<li>VisitID: Visit ID string</li>
+<li>VisitDate: Datetime of visit (needs to be checked)</li>
+<li>GridType: unknown</li>
+<li>GridOffset: unknown</li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="heyexReader.volReader.volFile.bScanHeader">
+<code class="descname">bScanHeader</code><span class="sig-paren">(</span><em>slicei</em><span class="sig-paren">)</span><a class="headerlink" href="#heyexReader.volReader.volFile.bScanHeader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the B Scan header information per slice.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>slicei</strong> (<em>int</em>) – index of B scan</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>Dictionary with the following keys</dt>
+<dd><ul class="first last simple">
+<li>startX: x-coordinate for B scan on IR. (see getGrid)</li>
+<li>startY: y-coordinate for B scan on IR. (see getGrid)</li>
+<li>endX: x-coordinate for B scan on IR. (see getGrid)</li>
+<li>endY: y-coordinate for B scan on IR. (see getGrid)</li>
+<li>numSeg: 2 or 3 segmentation lines for the B scan</li>
+<li>quality: OCT signal quality</li>
+<li>shift: unknown</li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="heyexReader.volReader.volFile.saveGrid">
+<code class="descname">saveGrid</code><span class="sig-paren">(</span><em>outfn</em><span class="sig-paren">)</span><a class="headerlink" href="#heyexReader.volReader.volFile.saveGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the grid coordinates mapping OCT Bscans to the IR SLO image to a text file. The text file
+will be a tab-delimited file with 5 columns: The bscan number, x_0, y_0, x_1, y_1 in pixel space
+scaled to the resolution of the IR SLO image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>outfn</strong> (<em>str</em>) – location of where to output the file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="Welcome to Python Heyex Reader’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Aaron Y. Lee MD MSCI
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

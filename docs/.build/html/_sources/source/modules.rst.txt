@@ -1,0 +1,7 @@
+heyexReader
+===========
+
+.. toctree::
+   :maxdepth: 4
+
+   heyexReader package

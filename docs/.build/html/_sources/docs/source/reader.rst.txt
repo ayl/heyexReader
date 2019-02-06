@@ -1,0 +1,22 @@
+reader package
+==============
+
+Submodules
+----------
+
+reader.vol module
+-----------------
+
+.. automodule:: reader.vol
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: reader
+    :members:
+    :undoc-members:
+    :show-inheritance:
