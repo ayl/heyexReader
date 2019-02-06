@@ -32,3 +32,8 @@ vol.renderOCTscans("oct", renderSeg = True)
 print(vol.oct.shape)
 print(vol.irslo.shape)
 ```
+
+# Thanks To
+
+The basis for this code was ported from Markus Mayer's excellent work <https://www5.cs.fau.de/research/software/octseg/>. 
+
