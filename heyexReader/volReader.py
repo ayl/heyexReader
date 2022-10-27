@@ -141,8 +141,9 @@ class volFile():
             header["fieldSizeSlo"] = struct.unpack("I", fin.read(4))[0] # FOV in degrees
             header["scanFocus"] = struct.unpack("d", fin.read(8))[0]
             header["scanPos"] = fin.read(4)
-            header["examTime"] = struct.unpack("l", fin.read(8))[0] / 1e7
-            header["examTime"] = datetime.datetime.utcfromtimestamp(header["examTime"] - (369*365.25+4) * 24*60*60) # needs to be checked
+            header["examTime"] = struct.unpack("l", fin.read(8))[0] / 1e7 # (second) from 01.01.1601 => divide by 10^7 becasue the value is originally in the unit of 100nsec.
+            header["examTime"] = datetime.datetime.utcfromtimestamp(header["examTime"])
+            header["examTime"] = header["examTime"] - (datetime.date(1970,1,1) - datetime.date(1601,1,1))
             header["scanPattern"] = struct.unpack("I", fin.read(4))[0]
             header["BscanHdrSize"] = struct.unpack("I", fin.read(4))[0]
             header["ID"] = fin.read(16)
