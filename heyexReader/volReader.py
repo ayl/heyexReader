@@ -163,7 +163,7 @@ class volFile():
             wholefile["header"] = header
             fin.seek(2048)
             U = array.array("B")
-            U.fromstring(fin.read(header["sizeXSlo"] * header["sizeYSlo"]))
+            U.frombytes(fin.read(header["sizeXSlo"] * header["sizeYSlo"]))
             U = np.array(U).astype("uint8").reshape((header["sizeXSlo"],header["sizeYSlo"]))
             wholefile["sloImage"] = U
 
@@ -188,7 +188,7 @@ class volFile():
                 # extract OCT B scan data
                 fin.seek(header["BscanHdrSize"] + sloOffset + i * octOffset)
                 U = array.array("f")
-                U.fromstring(fin.read(4 * header["octSizeX"] * header["octSizeZ"]))
+                U.frombytes(fin.read(4 * header["octSizeX"] * header["octSizeZ"]))
                 U = np.array(U).reshape((header["octSizeZ"],header["octSizeX"]))
                 # remove out of boundary 
                 v = struct.unpack("f", decode_hex('FFFF7F7F')[0])
@@ -201,7 +201,7 @@ class volFile():
                 # extract OCT segmentations data
                 fin.seek(256 + sloOffset + i * octOffset)
                 U = array.array("f")
-                U.fromstring(fin.read(4 * header["octSizeX"] * bscanHead["numSeg"]))
+                U.frombytes(fin.read(4 * header["octSizeX"] * bscanHead["numSeg"]))
                 U = np.array(U)
                 U[U == v] = 0.
 
