@@ -14,18 +14,18 @@ import numpy as np
 from collections import OrderedDict
 
 class volFile():
-    def __init__(self, filename):
+    def __init__(self, filename, stop_before_pixels=False):
         """
         Parses Heyex Spectralis *.vol files.
 
         Args:
             filename (str): Path to vol file
 
-        Returns: 
+        Returns:
             volFile class
 
         """
-        self.__parseVolFile(filename)
+        self.__parseVolFile(filename, stop_before_pixels)
 
     @property
     def oct(self):
@@ -56,7 +56,7 @@ class volFile():
 
         Returns:
             2D numpy array with the number of b scan images in the first dimension
-            and x_0, y_0, x_1, y_1 defining the line of the B scan on the pixel 
+            and x_0, y_0, x_1, y_1 defining the line of the B scan on the pixel
             coordinates of the IR SLO image.
 
         """
@@ -122,7 +122,7 @@ class volFile():
 
             Image.fromarray(a).save("%s-%03d.png" % (filepre, i))
 
-    def __parseVolFile(self, fn):
+    def __parseVolFile(self, fn, stop_before_pixels):
         # long may be 8 or 4 bytes depending on the architecture
         long_type = ("l" if struct.calcsize("l") == 8 else "q")
 
@@ -151,7 +151,7 @@ class volFile():
             header["BscanHdrSize"] = struct.unpack("I", fin.read(4))[0]
             header["ID"] = fin.read(16)
             header["ReferenceID"] = fin.read(16)
-            header["PID"] = struct.unpack("I", fin.read(4))[0] 
+            header["PID"] = struct.unpack("I", fin.read(4))[0]
             header["PatientID"] = fin.read(21)
             header["unknown2"] = fin.read(3)
 
@@ -181,50 +181,52 @@ class volFile():
             wholefile["sloImage"] = U
 
             sloOffset = 2048 + header["sizeXSlo"] * header["sizeYSlo"]
-            octOffset = header["BscanHdrSize"] + header["octSizeX"] * header["octSizeZ"] * 4 
+            octOffset = header["BscanHdrSize"] + header["octSizeX"] * header["octSizeZ"] * 4
             bscans = []
             bscanheaders = []
             segmentations = None
-            for i in range(header["numBscan"]):
-                fin.seek(16 + sloOffset + i * octOffset)
-                bscanHead = OrderedDict()
-                bscanHead["startX"] = struct.unpack("d", fin.read(8))[0]
-                bscanHead["startY"] = struct.unpack("d", fin.read(8))[0]
-                bscanHead["endX"] = struct.unpack("d", fin.read(8))[0]
-                bscanHead["endY"] = struct.unpack("d", fin.read(8))[0]
-                bscanHead["numSeg"] = struct.unpack("I", fin.read(4))[0]
-                bscanHead["offSeg"] = struct.unpack("I", fin.read(4))[0]
-                bscanHead["quality"] = struct.unpack("f", fin.read(4))[0]
-                bscanHead["shift"] = struct.unpack("I", fin.read(4))[0]
-                bscanheaders.append(bscanHead)
 
-                # extract OCT B scan data
-                fin.seek(header["BscanHdrSize"] + sloOffset + i * octOffset)
-                U = array.array("f")
-                U.frombytes(fin.read(4 * header["octSizeX"] * header["octSizeZ"]))
-                U = np.array(U).reshape((header["octSizeZ"],header["octSizeX"]))
-                # remove out of boundary 
-                v = struct.unpack("f", decode_hex('FFFF7F7F')[0])
-                U[U == v] = 0
-                # log normalize
-                U = np.log(10000 * U + 1)
-                U = (255. * (np.clip(U, 0, np.max(U)) / np.max(U))).astype("uint8")
-                bscans.append(U)
+            if not stop_before_pixels:
+                for i in range(header["numBscan"]):
+                    fin.seek(16 + sloOffset + i * octOffset)
+                    bscanHead = OrderedDict()
+                    bscanHead["startX"] = struct.unpack("d", fin.read(8))[0]
+                    bscanHead["startY"] = struct.unpack("d", fin.read(8))[0]
+                    bscanHead["endX"] = struct.unpack("d", fin.read(8))[0]
+                    bscanHead["endY"] = struct.unpack("d", fin.read(8))[0]
+                    bscanHead["numSeg"] = struct.unpack("I", fin.read(4))[0]
+                    bscanHead["offSeg"] = struct.unpack("I", fin.read(4))[0]
+                    bscanHead["quality"] = struct.unpack("f", fin.read(4))[0]
+                    bscanHead["shift"] = struct.unpack("I", fin.read(4))[0]
+                    bscanheaders.append(bscanHead)
 
-                # extract OCT segmentations data
-                fin.seek(256 + sloOffset + i * octOffset)
-                U = array.array("f")
-                U.frombytes(fin.read(4 * header["octSizeX"] * bscanHead["numSeg"]))
-                U = np.array(U)
-                U[U == v] = 0.
+                    # extract OCT B scan data
+                    fin.seek(header["BscanHdrSize"] + sloOffset + i * octOffset)
+                    U = array.array("f")
+                    U.frombytes(fin.read(4 * header["octSizeX"] * header["octSizeZ"]))
+                    U = np.array(U).reshape((header["octSizeZ"],header["octSizeX"]))
+                    # remove out of boundary
+                    v = struct.unpack("f", decode_hex('FFFF7F7F')[0])
+                    U[U == v] = 0
+                    # log normalize
+                    U = np.log(10000 * U + 1)
+                    U = (255. * (np.clip(U, 0, np.max(U)) / np.max(U))).astype("uint8")
+                    bscans.append(U)
 
-                if segmentations == None:
-                    segmentations = []
+                    # extract OCT segmentations data
+                    fin.seek(256 + sloOffset + i * octOffset)
+                    U = array.array("f")
+                    U.frombytes(fin.read(4 * header["octSizeX"] * bscanHead["numSeg"]))
+                    U = np.array(U)
+                    U[U == v] = 0.
+
+                    if segmentations == None:
+                        segmentations = []
+                        for j in range(bscanHead["numSeg"]):
+                            segmentations.append([])
+
                     for j in range(bscanHead["numSeg"]):
-                        segmentations.append([])
-
-                for j in range(bscanHead["numSeg"]):
-                    segmentations[j].append(U[j*header["octSizeX"]:(j+1) * header["octSizeX"]].tolist())
+                        segmentations[j].append(U[j*header["octSizeX"]:(j+1) * header["octSizeX"]].tolist())
 
 
             wholefile["cScan"] = np.array(bscans)
